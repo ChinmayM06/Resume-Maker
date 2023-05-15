@@ -14,8 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import personalAndAcademics.personalAndAcademics;
-
 public class Login extends JFrame implements ActionListener {
 
 	JLabel icon = new JLabel("Welcome");
