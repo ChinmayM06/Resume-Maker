@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import sqlOps.resumeDB;
 
 public class Registration extends JFrame implements ActionListener {
 
@@ -108,14 +109,17 @@ public class Registration extends JFrame implements ActionListener {
 			} else if (!flag) {
 				throw new IllegalArgumentException("Passwords are not same.");
 			}
+			String password = new String(p1);
+			String n = Fname.getText();
+			resumeDB.insertLoginDB(n, password);
 			this.dispose();
-			Login logo = new Login();
+			new Login();
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
-	 public static void main(String[] args) {
-		 Registration r = new Registration();
-	 }
+
+	public static void main(String[] args) {
+		new Registration();
+	}
 }

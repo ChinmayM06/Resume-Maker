@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import sqlOps.resumeDB;
+
 public class Login extends JFrame implements ActionListener {
 
 	JLabel icon = new JLabel("Welcome");
@@ -74,18 +76,30 @@ public class Login extends JFrame implements ActionListener {
 		pw.addActionListener(this);
 	}
 
+	String p;
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		char[] x = pw.getPassword();
+		p = new String(x);
+		String n = name.getText();
+		boolean f = resumeDB.getLoginDB(n);
 		try {
 			if (e.getSource() == login) {
-				if(name.getText().isEmpty() || pw.getPassword().length == 0) {
-					JOptionPane.showMessageDialog(this, "Enter the necessary details!",
-				               "Error!", JOptionPane.ERROR_MESSAGE);
+				if (name.getText().isEmpty() || pw.getPassword().length == 0) {
+					JOptionPane.showMessageDialog(this, "Enter the necessary details!", "Error!",
+							JOptionPane.ERROR_MESSAGE);
 				}
-				else {
-					this.dispose();
-					personalAndAcademics p = new personalAndAcademics();
-				} 
+				if (f) {
+					if (p.equals(resumeDB.pass)) {
+						this.dispose();
+						new personalAndAcademics();
+					} else {
+						JOptionPane.showMessageDialog(this, "Username or password is incorrect!", "Error!",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+
 			}
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -93,7 +107,7 @@ public class Login extends JFrame implements ActionListener {
 
 		if (e.getSource() == register) {
 			this.dispose();
-			Registration r = new Registration();
+			new Registration();
 		}
 	}
 }
