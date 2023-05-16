@@ -118,8 +118,4 @@ public class Registration extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
-	public static void main(String[] args) {
-		new Registration();
-	}
 }

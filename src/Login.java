@@ -99,7 +99,8 @@ public class Login extends JFrame implements ActionListener {
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
-
+				this.dispose();
+				new personalAndAcademics();
 			}
 		} catch (IllegalArgumentException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

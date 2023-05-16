@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -18,6 +21,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+
+import sqlOps.resumeDB;
 
 public class personalAndAcademics extends JFrame implements ActionListener {
 
@@ -61,6 +66,14 @@ public class personalAndAcademics extends JFrame implements ActionListener {
 	static JRadioButton male = new JRadioButton("Male");
 	static JRadioButton female = new JRadioButton("Female");
 	static ButtonGroup g = new ButtonGroup();
+
+	// comboBox p1
+	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
+			"October", "November", "December" };
+	Integer[] days = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+			27, 28, 29, 30, 31 };
+	Integer[] years = { 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994,
+			1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005 };
 
 	public personalAndAcademics() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -135,13 +148,7 @@ public class personalAndAcademics extends JFrame implements ActionListener {
 		p1.add(Addr);
 		p1.add(nation);
 
-		// comboBox p1
-		String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
-				"October", "November", "December" };
-		Integer[] days = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
-				26, 27, 28, 29, 30, 31 };
-		Integer[] years = { 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993,
-				1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005 };
+		// comboBox
 		month = new JComboBox(months);
 		month.setLocation(210, 200);
 		month.setSize(90, 30);
@@ -230,8 +237,37 @@ public class personalAndAcademics extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == next) {
+			// personal db
 			String name = nameF.getText().trim();
 			String emai = email.getText().trim();
+			ButtonModel gend = g.getSelection();
+			String gen = gend.getActionCommand();
+			// DOB part
+			int selectedYear = Integer.parseInt(year.getSelectedItem().toString());
+			String selectedMonthName = month.getSelectedItem().toString();
+			int selectedDay = Integer.parseInt(day.getSelectedItem().toString());
+			Month selectedMonth = null;
+			for (int i = 0; i < months.length; i++) {
+				if (months[i].equals(selectedMonthName)) {
+					selectedMonth = Month.values()[i];
+					break;
+				}
+			}
+			LocalDate dob = LocalDate.of(selectedYear, selectedMonth, selectedDay);
+			Date sql = Date.valueOf(dob);
+			//
+			String addr = Addr.getText();
+			String nat = nation.getText();
+			String prof = professionF.getText();
+
+			// academics db
+			String scl = sclNameF.getText();
+			int sclGrade = Integer.parseInt(sclGradF.getText());
+			String jrc = jrcNameF.getText();
+			int jrcGrade = Integer.parseInt(jrcGradF.getText());
+			String colg = colgNameF.getText();
+			int colgGrade = Integer.parseInt(colgGradF.getText());
+
 			String cgpaValueStr = colgGradF.getText();
 			String passingGradeValueStr = sclGrad.getText();
 
@@ -274,8 +310,19 @@ public class personalAndAcademics extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				return; // stop the method execution if passing grade value is not numeric
 			}
-			this.dispose();
-			new workAndSkills();
+			boolean a = resumeDB.insertPersonalDB(name, emai, gen, sql, nat, addr, prof);
+			boolean b = resumeDB.insertAcademicsDB(scl, sclGrade, jrc, jrcGrade, colg, colgGrade);
+			if (a && b) {
+				this.dispose();
+				new workAndSkills();
+			} else {
+				JOptionPane.showMessageDialog(this, "Something went wrong!", "Error!", JOptionPane.ERROR_MESSAGE);
+			}
+
 		}
+	}
+
+	public static void main(String[] args) {
+		new personalAndAcademics();
 	}
 }
