@@ -12,8 +12,11 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import sqlOps.resumeDB;
 
 public class workAndSkills extends JFrame implements ActionListener {
 
@@ -46,6 +49,7 @@ public class workAndSkills extends JFrame implements ActionListener {
 	JButton add = new JButton("ADD");
 	JButton add2 = new JButton("ADD");
 	JButton picture = new JButton("UPLOAD");
+	JButton save = new JButton("SAVE");
 
 	workAndSkills() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,12 +167,23 @@ public class workAndSkills extends JFrame implements ActionListener {
 		p3.add(imageLabel);
 		picture.addActionListener(this);
 
+		// save btn
+		save.setFont(new Font("Lato", Font.BOLD, 15));
+		save.setBounds(800, 700, 80, 40);
+		save.setBackground(Color.BLACK);
+		save.setForeground(Color.WHITE);
+		save.setFocusable(false);
+		save.addActionListener(this);
+		this.add(save);
+
 		this.add(p3);
 		this.add(p2);
 		this.add(p1);
 	}
 
 	static int clicked = 0;
+	// c is for getting the number of jobs entered to call the function accordingly
+	static int cnt = 1;
 
 	void addButton(ActionEvent e) {
 		if ((e.getSource() == add) && (clicked == 0)) {
@@ -178,6 +193,7 @@ public class workAndSkills extends JFrame implements ActionListener {
 			jobF2.setVisible(true);
 			employerF2.setVisible(true);
 			clicked++;
+			cnt++;
 			return;
 		}
 		if ((clicked == 1) && (e.getSource() == add)) {
@@ -187,37 +203,56 @@ public class workAndSkills extends JFrame implements ActionListener {
 			jobF3.setVisible(true);
 			employerF3.setVisible(true);
 			add.setEnabled(false);
+			cnt++;
 			return;
 		}
 	}
 
 	static int clicked2 = 0;
+	static int cnt2 = 1;
 
 	void add2Button(ActionEvent e) {
 		if ((e.getSource() == add2) && (clicked2 == 0)) {
 			add2.setBounds(265, 110, 70, 20);
 			skillF2.setVisible(true);
 			clicked2++;
+			cnt2++;
 			return;
 		}
 		if ((e.getSource() == add2) && (clicked2 == 1)) {
 			add2.setBounds(265, 170, 70, 20);
 			skillF3.setVisible(true);
 			clicked2++;
+			cnt2++;
 			return;
 		}
 		if ((e.getSource() == add2) && (clicked2 == 2)) {
 			add2.setVisible(false);
 			skillF4.setVisible(true);
 			clicked2++;
+			cnt2++;
 			return;
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// jobs and companies
+		String j1 = jobF.getText();
+		String c1 = employerF.getText();
+		String j2 = jobF2.getText();
+		String c2 = employerF2.getText();
+		String j3 = jobF3.getText();
+		String c3 = employerF3.getText();
+
+		// skills
+		String s = skillF.getText();
+		String s1 = skillF2.getText();
+		String s2 = skillF3.getText();
+		String s3 = skillF4.getText();
+
+		// pic
 		if (e.getSource() == add) {
-			System.out.println("Nme: ");
 			addButton(e);
 		}
 		if (e.getSource() == add2) {
@@ -229,18 +264,80 @@ public class workAndSkills extends JFrame implements ActionListener {
 			if (option == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = fileChooser.getSelectedFile();
 				ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
-				Image scaledImage = imageIcon
-						.getImage()
-						.getScaledInstance(imageLabel.getWidth(), 
-						imageLabel.getHeight(), 
-						Image.SCALE_SMOOTH);
-				imageLabel.setIcon(new ImageIcon(scaledImage));;
+				Image scaledImage = imageIcon.getImage().getScaledInstance(imageLabel.getWidth(),
+						imageLabel.getHeight(), Image.SCALE_SMOOTH);
+				imageLabel.setIcon(new ImageIcon(scaledImage));
+			}
+		}
+		if (e.getSource() == save) {
+			if (cnt == 1) {
+				boolean a = resumeDB.insertWorkDB(j1, c1);
+				if (a) {
+					JOptionPane.showMessageDialog(this, "SUCCESSFUL done jobs!", "YAY!",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			if (cnt == 2) {
+				boolean a = resumeDB.insertWorkDB(j1, c1, j2, c2);
+				if (a) {
+					JOptionPane.showMessageDialog(this, "SUCCESSFUL done jobs!", "YAY!",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			if (cnt == 3) {
+				boolean a = resumeDB.insertWorkDB(j1, c1, j2, c2, j3, c3);
+				if (a) {
+					JOptionPane.showMessageDialog(this, "SUCCESSFULY done jobs!", "YAY!",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			if (cnt2 == 1) {
+				boolean b = resumeDB.insertSkillsDB(s);
+				if (b) {
+					JOptionPane.showMessageDialog(this, "SUCCESSFULY done skills!", "YAY!",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			if (cnt2 == 2) {
+				boolean b = resumeDB.insertSkillsDB(s, s1);
+				if (b) {
+					JOptionPane.showMessageDialog(this, "SUCCESSFULY done skills!", "YAY!",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			if (cnt2 == 3) {
+				boolean b = resumeDB.insertSkillsDB(s, s1, s2);
+				if (b) {
+					JOptionPane.showMessageDialog(this, "SUCCESSFULY done skills!", "YAY!",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			if (cnt2 == 4) {
+				boolean b = resumeDB.insertSkillsDB(s, s1, s2, s3);
+				if (b) {
+					JOptionPane.showMessageDialog(this, "SUCCESSFULY done skills!", "YAY!",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 	}
 
 	public static void main(String[] args) {
-		workAndSkills p = new workAndSkills();
+		new workAndSkills();
 	}
 
 }

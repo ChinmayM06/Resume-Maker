@@ -97,4 +97,144 @@ public class resumeDB {
 		return f;
 	}
 
+	public static boolean insertWorkDB(String jt1, String comp1) {
+		boolean f = false;
+		try {
+			Connection con = CP.createC();
+
+			String q = "insert into jobs(jt1, comp1) values(?,?)";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+			pstmt.setString(1, jt1);
+			pstmt.setString(2, comp1);
+			pstmt.executeUpdate();
+			con.close();
+			f = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+	public static boolean insertWorkDB(String jt1, String comp1, String jt2, String comp2) {
+		boolean f = false;
+		try {
+			Connection con = CP.createC();
+
+			String q = "insert into jobs(jt1, comp1, jt2, comp2) values(?,?,?,?)";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+			pstmt.setString(1, jt1);
+			pstmt.setString(2, comp1);
+			pstmt.setString(3, jt2);
+			pstmt.setString(4, comp2);
+			pstmt.executeUpdate();
+			con.close();
+			f = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+	public static boolean insertWorkDB(String jt1, String comp1, String jt2, String comp2, String jt3, String comp3) {
+		boolean f = false;
+		try {
+			Connection con = CP.createC();
+
+			String q = "insert into jobs(jt1, comp1, jt2, comp2, jt3, comp3) values(?,?,?,?,?,?)";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+			pstmt.setString(1, jt1);
+			pstmt.setString(2, comp1);
+			pstmt.setString(3, jt2);
+			pstmt.setString(4, comp2);
+			pstmt.setString(5, jt3);
+			pstmt.setString(6, comp3);
+			pstmt.executeUpdate();
+			con.close();
+			f = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+	public static boolean insertSkillsDB(String s) {
+		boolean f = false;
+		try {
+			Connection con = CP.createC();
+
+			String q = "insert into skills(skill1) values(?)";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+			pstmt.setString(1, s);
+			pstmt.executeUpdate();
+			con.close();
+			f = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+	public static boolean insertSkillsDB(String s, String s1) {
+		boolean f = false;
+		try {
+			Connection con = CP.createC();
+
+			String q = "insert into skills(skill1,skill2) values(?,?)";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+			pstmt.setString(1, s);
+			pstmt.setString(2, s1);
+			pstmt.executeUpdate();
+			con.close();
+			f = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+	public static boolean insertSkillsDB(String s, String s1, String s2) {
+		boolean f = false;
+		try {
+			Connection con = CP.createC();
+
+			String q = "insert into skills(skill1,skill2,skill3) values(?,?,?)";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+			pstmt.setString(1, s);
+			pstmt.setString(2, s1);
+			pstmt.setString(3, s2);
+			pstmt.executeUpdate();
+			con.close();
+			f = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+	public static boolean insertSkillsDB(String s, String s1, String s2, String s3) {
+		boolean f = false;
+		try {
+			Connection con = CP.createC();
+
+			String q = "insert into skills(skill1,skill2,skill3,skill4) values(?,?,?,?)";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+			pstmt.setString(1, s);
+			pstmt.setString(2, s1);
+			pstmt.setString(3, s2);
+			pstmt.setString(4, s3);
+			pstmt.executeUpdate();
+			con.close();
+			f = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
 }
