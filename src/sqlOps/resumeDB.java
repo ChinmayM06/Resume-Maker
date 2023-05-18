@@ -1,5 +1,7 @@
 package sqlOps;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -237,4 +239,28 @@ public class resumeDB {
 		}
 		return f;
 	}
+
+	public static boolean insertImageIntoDatabase(File imageFile) {
+		boolean f = false;
+		try {
+			// Read the image file into a byte array
+			FileInputStream fis = new FileInputStream(imageFile);
+			byte[] imageData = fis.readAllBytes();
+			fis.close();
+
+			// Insert the image into the database
+			Connection con = CP.createC();
+			String sql = "INSERT INTO pic (img) VALUES (?)";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setBytes(1, imageData);
+			pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+			f = true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return f;
+	}
+
 }
