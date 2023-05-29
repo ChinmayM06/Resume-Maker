@@ -50,6 +50,7 @@ public class workAndSkills extends JFrame implements ActionListener {
 	JButton add2 = new JButton("ADD");
 	JButton picture = new JButton("UPLOAD");
 	JButton save = new JButton("SAVE");
+	JButton gen = new JButton("GENERATE  RESUME");
 
 	workAndSkills() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -176,6 +177,15 @@ public class workAndSkills extends JFrame implements ActionListener {
 		save.addActionListener(this);
 		this.add(save);
 
+		// gen btn
+		gen.setFont(new Font("Lato", Font.BOLD, 15));
+		gen.setBounds(550, 700, 200, 40);
+		gen.setBackground(Color.BLACK);
+		gen.setForeground(Color.WHITE);
+		gen.setFocusable(false);
+		gen.addActionListener(this);
+		this.add(gen);
+
 		this.add(p3);
 		this.add(p2);
 		this.add(p1);
@@ -277,69 +287,37 @@ public class workAndSkills extends JFrame implements ActionListener {
 			}
 		}
 		if (e.getSource() == save) {
+			boolean a = false, b = false;
 			if (cnt == 1) {
-				boolean a = resumeDB.insertWorkDB(j1, c1);
-				if (a) {
-					JOptionPane.showMessageDialog(this, "SUCCESSFUL done jobs!", "YAY!",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
-				}
+				a = resumeDB.insertWorkDB(j1, c1);
 			}
 			if (cnt == 2) {
-				boolean a = resumeDB.insertWorkDB(j1, c1, j2, c2);
-				if (a) {
-					JOptionPane.showMessageDialog(this, "SUCCESSFUL done jobs!", "YAY!",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
-				}
+				a = resumeDB.insertWorkDB(j1, c1, j2, c2);
 			}
 			if (cnt == 3) {
-				boolean a = resumeDB.insertWorkDB(j1, c1, j2, c2, j3, c3);
-				if (a) {
-					JOptionPane.showMessageDialog(this, "SUCCESSFULY done jobs!", "YAY!",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
-				}
+				a = resumeDB.insertWorkDB(j1, c1, j2, c2, j3, c3);
 			}
 			if (cnt2 == 1) {
-				boolean b = resumeDB.insertSkillsDB(s);
-				if (b) {
-					JOptionPane.showMessageDialog(this, "SUCCESSFULY done skills!", "YAY!",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
-				}
+				b = resumeDB.insertSkillsDB(s);
 			}
 			if (cnt2 == 2) {
-				boolean b = resumeDB.insertSkillsDB(s, s1);
-				if (b) {
-					JOptionPane.showMessageDialog(this, "SUCCESSFULY done skills!", "YAY!",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
-				}
+				b = resumeDB.insertSkillsDB(s, s1);
 			}
 			if (cnt2 == 3) {
-				boolean b = resumeDB.insertSkillsDB(s, s1, s2);
-				if (b) {
-					JOptionPane.showMessageDialog(this, "SUCCESSFULY done skills!", "YAY!",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
-				}
+				b = resumeDB.insertSkillsDB(s, s1, s2);
 			}
 			if (cnt2 == 4) {
-				boolean b = resumeDB.insertSkillsDB(s, s1, s2, s3);
-				if (b) {
-					JOptionPane.showMessageDialog(this, "SUCCESSFULY done skills!", "YAY!",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
-				}
+				b = resumeDB.insertSkillsDB(s, s1, s2, s3);
 			}
+			if (a && b) {
+				JOptionPane.showMessageDialog(this, "SUCCESSFULY SAVED YOUR INFO!", "Success!",
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this, "There was some issue!", "Error!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		if (e.getSource() == gen) {
+
 		}
 	}
 

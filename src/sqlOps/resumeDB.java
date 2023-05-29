@@ -263,4 +263,42 @@ public class resumeDB {
 		return f;
 	}
 
+	// personal and academics
+	// personal
+	public static String name;
+	public static String email;
+	public static String gender;
+	public static Date date;
+	public static String address;
+	public static String nationality;
+	public static String profession;
+	// academics
+	public static String scl;
+	public static int sclGrade;
+	public static String jrc;
+	public static int jrcGrade;
+	public static String colg;
+	public static int colgGrade;
+
+	// work and skills
+	// work
+	public static String job1;
+	public static String company1;
+	public static String job2;
+	public static String company2;
+	public static String job3;
+	public static String company3;
+	// skills
+	public static String skill1;
+	public static String skill2;
+	public static String skill3;
+	public static String skill4;
+	// picture
+	public static byte[] imageData;
+
+	public static boolean getAllInfoDB() {
+		boolean f = false;
+		return f;
+	}
+
 }
