@@ -263,12 +263,32 @@ public class resumeDB {
 		return f;
 	}
 
+	public static int id;
+
+	public static void getUserID(String name) {
+		try {
+			Connection con = CP.createC();
+
+			String q = "SELECT * FROM personal_info WHERE fname=?";
+			PreparedStatement pstmt = con.prepareStatement(q);
+			pstmt.setString(1, name);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				id = rs.getInt("id");
+			}
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	// personal and academics
 	// personal
 	public static String name;
 	public static String email;
 	public static String gender;
-	public static Date date;
+	public static Date bday;
 	public static String address;
 	public static String nationality;
 	public static String profession;
@@ -298,6 +318,52 @@ public class resumeDB {
 
 	public static boolean getAllInfoDB() {
 		boolean f = false;
+		try {
+			Connection con = CP.createC();
+
+			String q = "SELECT * FROM personal_info " + "JOIN academics ON personal_info.id = academics.id "
+					+ "JOIN jobs ON personal_info.id = jobs.id " + "JOIN skills ON personal_info.id = skills.id "
+					+ "JOIN pic ON personal_info.id = pic.id " + "WHERE personal_info.id = ?;";
+			PreparedStatement pstmt = con.prepareStatement(q);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				// personal
+				name = rs.getString("fname");
+				email = rs.getString("email");
+				gender = rs.getString("gender");
+				bday = rs.getDate("DOB");
+				address = rs.getString("address");
+				nationality = rs.getString("nationality");
+				profession = rs.getString("profession");
+				// academics
+				scl = rs.getString("school_name");
+				sclGrade = rs.getInt("10th_percentage");
+				jrc = rs.getString("jrc_name");
+				jrcGrade = rs.getInt("12th_percentage");
+				colg = rs.getString("uni_name");
+				colgGrade = rs.getInt("cgpa");
+				// jobs
+				job1 = rs.getString("jt1");
+				company1 = rs.getString("comp1");
+				job2 = rs.getString("jt2");
+				company2 = rs.getString("comp2");
+				job3 = rs.getString("jt3");
+				company3 = rs.getString("comp3");
+				// skills
+				skill1 = rs.getString("skill1");
+				skill2 = rs.getString("skill2");
+				skill3 = rs.getString("skill3");
+				skill4 = rs.getString("skill4");
+				// picture
+				imageData = rs.getBytes("img");
+			}
+			f = true;
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return f;
 	}
 

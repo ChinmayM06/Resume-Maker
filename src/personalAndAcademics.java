@@ -313,6 +313,7 @@ public class personalAndAcademics extends JFrame implements ActionListener {
 			boolean a = resumeDB.insertPersonalDB(name, emai, gen, sql, nat, addr, prof);
 			boolean b = resumeDB.insertAcademicsDB(scl, sclGrade, jrc, jrcGrade, colg, colgGrade);
 			if (a && b) {
+				resumeDB.getUserID(name);
 				this.dispose();
 				new workAndSkills();
 			} else {
@@ -320,9 +321,5 @@ public class personalAndAcademics extends JFrame implements ActionListener {
 			}
 
 		}
-	}
-
-	public static void main(String[] args) {
-		new personalAndAcademics();
 	}
 }
