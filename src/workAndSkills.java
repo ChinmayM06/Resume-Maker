@@ -278,12 +278,6 @@ public class workAndSkills extends JFrame implements ActionListener {
 						imageLabel.getHeight(), Image.SCALE_SMOOTH);
 				imageLabel.setIcon(new ImageIcon(scaledImage));
 				boolean a = resumeDB.insertImageIntoDatabase(selectedFile);
-				if (a) {
-					JOptionPane.showMessageDialog(this, "SUCCESSFUL done jobs!", "YAY!",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this, "Sorry bro!", "Error!", JOptionPane.ERROR_MESSAGE);
-				}
 			}
 		}
 		if (e.getSource() == save) {
@@ -317,7 +311,8 @@ public class workAndSkills extends JFrame implements ActionListener {
 			}
 		}
 		if (e.getSource() == gen) {
-
+			new FileName();
+			this.dispose();
 		}
 	}
 

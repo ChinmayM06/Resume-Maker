@@ -7,11 +7,14 @@ import java.sql.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import sqlOps.resumeDB;
 
 public class FileName extends JFrame implements ActionListener {
 
-	private JLabel fileName = new JLabel("File Name: ");
+	private JLabel fileN = new JLabel("File Name: ");
 	private JTextField fname = new JTextField();
 
 	private JButton save = new JButton("SAVE");
@@ -24,9 +27,9 @@ public class FileName extends JFrame implements ActionListener {
 		this.setTitle("Resume Builder");
 		this.setLayout(null);
 
-		fileName.setBounds(30, 80, 120, 50);
-		fileName.setFont(new Font("Lato", Font.BOLD, 20));
-		this.add(fileName);
+		fileN.setBounds(30, 80, 120, 50);
+		fileN.setFont(new Font("Lato", Font.BOLD, 20));
+		this.add(fileN);
 
 		fname.setBounds(150, 95, 280, 30);
 		this.add(fname);
@@ -40,14 +43,20 @@ public class FileName extends JFrame implements ActionListener {
 		this.add(save);
 	}
 
+	public static String fileName;
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == save) {
-
+			fileName = fname.getText().trim();
+			boolean x;
+			x = resumeDB.getAllInfoDB();
+			if (x) {
+				
+			}else {
+				JOptionPane.showMessageDialog(this, "There was some issue!", "Error!", 
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
-	}
-
-	public static void main(String[] args) {
-		new FileName();
 	}
 }

@@ -319,7 +319,6 @@ public class personalAndAcademics extends JFrame implements ActionListener {
 			} else {
 				JOptionPane.showMessageDialog(this, "Something went wrong!", "Error!", JOptionPane.ERROR_MESSAGE);
 			}
-
 		}
 	}
 }
