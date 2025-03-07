@@ -1,6 +1,6 @@
 # Resume Maker
 
-Resume Maker is a Java-based application that helps users create professional resumes quickly and easily.
+Resume Maker is a Java-based application that helps users create professional resumes quickly and efficiently.
 
 ## Features
 
